@@ -19,6 +19,7 @@ All code is my own, optimizations were taken from "How to Avoid Yourself" by Bri
 #include <math.h>
 #include <string.h>
 #include <pthread.h>
+#include <cstdint>
 using namespace std;
 
 #define FORWARD 0
@@ -144,7 +145,7 @@ int score(char *prototein, int *walk) {
 }
 
 void *parallel_func(void *threadid){
-    int tid = (long) threadid;
+    uintptr_t tid = reinterpret_cast<uintptr_t>(threadid);
     int segmentSize = numWalks / NUMTHREADS;
     int startPos;
     int stopPos;
