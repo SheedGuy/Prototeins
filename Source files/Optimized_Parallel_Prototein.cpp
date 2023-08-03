@@ -189,7 +189,6 @@ int main(int argc, char **argv){
     prototein = argv[1];
     protoLen = strlen(argv[1]);
     numWalks = pow(3, protoLen-2);
-    int numThreads = stoi(argv[2]);
 
     pthread_t threads[NUMTHREADS];
     pthread_mutex_init(&mutex, 0);
@@ -206,9 +205,7 @@ int main(int argc, char **argv){
     }
     unsigned long long stop = rdtsc();
     
-    cout << "Max: " << maximum << " " << maxLabel << endl;
-    cout << "Runtime (clock cycles): " << stop - start << endl;
-    cout << "Runtime (seconds): " << (stop - start) / 3992800000.0 << endl;
+    cout << maximum << " " << stop - start << endl;
 
     pthread_mutex_destroy(&mutex);
 }

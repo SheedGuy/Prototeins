@@ -162,8 +162,6 @@ void *parallel_func(void *threadid){
 int main(int argc, char **argv){
     prototein = argv[1];
 
-    long start = rdtsc();
-
     protoLen = strlen(argv[1]);
     numWalks = pow(4, protoLen-1);
 
@@ -171,6 +169,7 @@ int main(int argc, char **argv){
     //pthread_mutex_init(&mutex, 0);
     pthread_mutex_init(&mutex2, 0);
 
+    unsigned long long start = rdtsc();
     // Creating the threads
     for (long t = 0; t < NUMTHREADS; t++) {
         pthread_create(&threads[t], NULL, parallel_func, (void *)t);
@@ -180,10 +179,9 @@ int main(int argc, char **argv){
     for (long t = 0; t < NUMTHREADS; t++) {
         pthread_join(threads[t], NULL);
     }
-    long stop = rdtsc();
+    unsigned long long stop = rdtsc();
 
-    cout << "Max: " << maximum << " " << maxLabel << endl;
-    cout << "Runtime: " << stop - start << endl;
+    cout << maximum << " " << stop - start << endl;
 
     //pthread_mutex_destroy(&mutex);
     pthread_mutex_destroy(&mutex2);

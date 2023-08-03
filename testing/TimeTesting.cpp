@@ -7,6 +7,7 @@ This program exists to help me test runtime settings and the chronos library
 #include <chrono>
 #include <iostream>
 
+/* chrono function testing */
 std::chrono::time_point<std::chrono::high_resolution_clock> startTimer() {
     return std::chrono::high_resolution_clock::now();
 }
@@ -18,12 +19,21 @@ void stopTimer(const std::chrono::time_point<std::chrono::high_resolution_clock>
     std::cout << "Duration: " << microseconds << " microseconds\n";
     std::cout << "Duration: " << seconds << " seconds\n";
 }
+// Notes:
+//  - Both functions have serious overhead that would mess throw off low end precision
+//  - Calculating duration using time does not account for varying clock speeds
 
+
+/* clock cycle function testing */
 unsigned long long rdtsc() {
    unsigned hi, lo;
    __asm__ __volatile__ ("rdtsc" : "=a"(lo), "=d"(hi));
    return ((unsigned long long) lo) | (((unsigned long long) hi) << 32);
 }
+// Notes:
+//  - Little overhead due to assembler code
+//  - Only viable if CPU clock speed can be locked
+
 
  
 long long int fibonacci(int n)

@@ -138,7 +138,7 @@ int main(int argc, char **argv){
 
     int walk[protoLen - 2];
 
-    long start = rdtsc();
+    unsigned long long start = rdtsc();
     for (int i = 0; i < numWalks; i++){
         labelToWalk(i, walk);
         int s = score(prototein, walk);
@@ -147,7 +147,7 @@ int main(int argc, char **argv){
             maxLabel = i;
         }
     }
-    long stop = rdtsc();
-    cout << "Max: " << maximum << " " << maxLabel << endl;
-    cout << "Runtime: " << stop - start << endl;
+    unsigned long long stop = rdtsc();
+    
+    cout << maximum << " " << stop - start << endl;
 }

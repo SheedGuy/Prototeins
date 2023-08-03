@@ -126,6 +126,6 @@ int main(int argc, char **argv) {
         }
     }
     unsigned long long stop = rdtsc();
-    cout << "Max: " << maximum << " " << maxLabel << endl;
-    cout << "Runtime: " << stop - start << endl;
+    
+    cout << maximum << " " << stop - start << endl;
 }
