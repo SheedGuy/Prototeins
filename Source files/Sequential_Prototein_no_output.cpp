@@ -110,7 +110,7 @@ int main(int argc, char **argv) {
     // Size is 2 minus r because length is 1 more than index, and for each walk you need to "walk" n-1 times
     int walk[r-2];
 
-    long start = rdtsc();
+    unsigned long long start = rdtsc();
     // show all walks for a given prototein // pow(4,r-1) is 4^(r-1) because each turn has 4 possible outcomes
     for (int i = 0; i < (int) pow(4,r-1); i++) {
         // labelToWalk() takes the label, i, and turns it into base 4, creating every possible walk
@@ -125,7 +125,7 @@ int main(int argc, char **argv) {
             maxLabel = i;
         }
     }
-    long stop = rdtsc();
+    unsigned long long stop = rdtsc();
     cout << "Max: " << maximum << " " << maxLabel << endl;
     cout << "Runtime: " << stop - start << endl;
 }
