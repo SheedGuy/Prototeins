@@ -189,11 +189,12 @@ int main(int argc, char **argv){
     prototein = argv[1];
     protoLen = strlen(argv[1]);
     numWalks = pow(3, protoLen-2);
+    int numThreads = stoi(argv[2]);
 
     pthread_t threads[NUMTHREADS];
     pthread_mutex_init(&mutex, 0);
 
-    long start = rdtsc();
+    unsigned long long start = rdtsc();
     // Creating the threads
     for (long t = 0; t < NUMTHREADS; t++) {
         pthread_create(&threads[t], NULL, parallel_func, (void *)t);
@@ -203,10 +204,11 @@ int main(int argc, char **argv){
     for (long t = 0; t < NUMTHREADS; t++) {
         pthread_join(threads[t], NULL);
     }
-    long stop = rdtsc();
+    unsigned long long stop = rdtsc();
     
     cout << "Max: " << maximum << " " << maxLabel << endl;
-    cout << "Runtime: " << stop - start << endl;
+    cout << "Runtime (clock cycles): " << stop - start << endl;
+    cout << "Runtime (seconds): " << (stop - start) / 3992800000.0 << endl;
 
     pthread_mutex_destroy(&mutex);
 }

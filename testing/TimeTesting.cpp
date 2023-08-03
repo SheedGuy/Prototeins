@@ -19,7 +19,11 @@ void stopTimer(const std::chrono::time_point<std::chrono::high_resolution_clock>
     std::cout << "Duration: " << seconds << " seconds\n";
 }
 
-
+unsigned long long rdtsc() {
+   unsigned hi, lo;
+   __asm__ __volatile__ ("rdtsc" : "=a"(lo), "=d"(hi));
+   return ((unsigned long long) lo) | (((unsigned long long) hi) << 32);
+}
 
  
 long long int fibonacci(int n)
@@ -39,9 +43,14 @@ int main(int argc, char **argv)
         num = std::stoi(argv[1]);
     }
 
-    auto startTime = startTimer();
+    unsigned long long startTest = rdtsc();
+
     long long int fibAns = fibonacci(num);
-    std::cout << num << " digits of the finonacci sequence equals " << fibAns << std::endl;
-    stopTimer(startTime);
+
+    unsigned long long endTest = rdtsc();
+
+    std::cout << "Clock Cycles: " << endTest - startTest << std::endl;
+    std::cout << "Clock Cycles in seconds: " << (endTest - startTest) / 3992800000.0 << std::endl;
+
 }
 
